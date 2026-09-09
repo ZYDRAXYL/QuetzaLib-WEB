@@ -2,7 +2,7 @@
 // and APK asset, falling back to the releases page if the API is
 // unreachable or rate-limited.
 (function () {
-  var API_URL = "https://api.github.com/repos/LDKTC/App-QuetzaLib/releases/latest";
+  var API_URL = "https://api.github.com/repos/ZYDRAXYL/QuetzaLib-APP/releases/latest";
   var downloadButtons = [
     document.getElementById("download-btn"),
     document.getElementById("download-btn-2"),

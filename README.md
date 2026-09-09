@@ -1,6 +1,6 @@
-# Web-QuetzaLib
+# QuetzaLib-WEB
 
-Landing page for [QuetzaLib](https://github.com/LDKTC/App-QuetzaLib), the
+Landing page for [QuetzaLib](https://github.com/ZYDRAXYL/QuetzaLib-APP), the
 Flutter Android app that scans a book's ISBN barcode, looks up its
 metadata, and adds it to a personal library stored locally on-device.
 
