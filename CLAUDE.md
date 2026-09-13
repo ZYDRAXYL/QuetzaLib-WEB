@@ -59,3 +59,39 @@ reload the browser — changes are live immediately, nothing needs compiling.
   rather than treating this as independent copy.
 - All links to the app's source, releases, and license point at
   `ZYDRAXYL/QuetzaLib-APP` (a separate GitHub repo from this one).
+
+## Where this repo sits in the wider project
+
+QuetzaLib is split across six repositories. This one (`WEB`) is the **site and
+the public release mirror** — the terminal node of every chain, and the place
+both the Android app and the desktop shell poll for updates.
+
+| Repo | Owns |
+|---|---|
+| **APP** | the Flutter app — and the hub: `.claude/`, `chain/`, `tools/`, `docs/` |
+| **SDB** | the published SQLite schema snapshot and backup-archive spec |
+| **EXE** | `electron/` — the Windows desktop shell |
+| **PWA** | the installable browser build |
+| **WEB** | this repo: the site, its Docs pages, the release mirror |
+| **DEV** | the multi-root VS Code workspace and setup scripts (private) |
+
+`chain/chain.json` is the machine-readable contract:
+
+```bash
+node tools/chain-lib.mjs      # this repo's upstream/downstream edges
+node tools/chain-survey.mjs   # what moved in the other repos since last look
+```
+
+Two consequences for the work done in this repo:
+
+- **`chain/chain.json`, `tools/chain-*.mjs`, and everything under `.claude/` are
+  mirrored from APP.** Each carries a "do not edit here" header. Edit the
+  original in `QuetzaLib-APP` and re-run `node tools/mirror-claude.mjs` there; a
+  local edit is lost on the next mirror.
+- **The release mirror carries more than one product.** APP ships `v*`, EXE
+  ships `exe-v*`, SDB ships `sdb-v*`. `assets/js/app.js` currently reads
+  `/releases/latest` from `ZYDRAXYL/QuetzaLib-APP`, which is single-product and
+  correct today — but once releases are mirrored here, anything reading this
+  repo's release list must **filter by tag prefix**. `latest` returns whichever
+  product published most recently, so an unfiltered read would offer a desktop
+  build to an Android user.
